@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="icon.svg">
+    <title>Google Forms DB</title>
+    <style>
+        body {
+            display: grid;
+            justify-content: center;
+            /* align-items: center; */
+        }
+        p, img, h1, h4 {
+            margin: auto;
+            padding: 10px;
+        }
+
+    </style>
+</head>
+<body>
+    <img src="icon.svg" alt="Google Forms to DB" width="50px">
+    <h1>Google Forms Database</h1>
+    <h4>This is an example html page that sends form data to Google Forms.</h4>
+    <br>
+    <form id="gform"> 
+        <label for="short_answer">Short Answer:</label>
+        <input type="text" name="entry.1818477530" id="short_answer" placeholder="short answer">
+        <hr>
+        <label for="long_answer">Long Answer:</label>
+        <br>
+        <textarea name="entry.1937887901" id="long_answer" rows="4" cols="34" placeholder="long answer...."></textarea>
+        <hr>
+        <p>Multiple Choice:</p>
+        <label for="option1">Option 1</label>
+        <input type="radio" name="entry.568275810" id="option1" value="Option 1">
+        <label for="option2">Option 2</label>
+        <input type="radio" name="entry.568275810" id="option2" value="Option 2">
+        <label for="option3">Option 3</label>
+        <input type="radio" name="entry.568275810" id="option3" value="Option 3">
+        <hr>
+        <p>Checkbox:</p>
+        <label for="option1">Option 1</label>
+        <input type="checkbox" name="entry.183783857" id="option1" value="Option 1">
+        <label for="option2">Option 2</label>
+        <input type="checkbox" name="entry.183783857" id="option2" value="Option 2">
+        <label for="option3">Option 3</label>
+        <input type="checkbox" name="entry.183783857" id="option3" value="Option 3">
+        <hr>
+        <p>Dropdown:</p>
+        <select name="entry.304676602" id="dropdown">
+            <option value="Option 1">Option 1</option>
+            <option value="Option 2">Option 2</option>
+            <option value="Option 3">Option 3</option>
+        </select>
+        <hr>
+        <br>
+        <input type="submit" value="Submit"/>
+    </form>
+    <script>
+        const form = document.getElementById("gform");
+        const submit = document.getElementById()
+
+        const formSubmit = async () => {
+            const formData = new FormData(form);
+
+            for (item of formData) {
+                console.log(item[0], item[1]);
+            }
+
+            const endpoint = "https://docs.google.com/forms/u/0/d/e/1FAIpQLSeKFo81YBgsLrFjuY8LQnF5Q0a_wOgP3ez5OFydOYrAl_wQ4w/formResponse";
+            try {
+                const response = await fetch(endpoint, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "x-www-form-urlencoded"
+                    },
+                    body: formData,
+                });
+                console.log(await response.json());
+            } catch (e) {
+                console.error(e)
+            }
+        }
+
+        form.addEventListener("submit", (event) => {
+                event.preventDefualt();
+                const payload = new FormData(form);
+                console.log([...payload]);
+                // formSubmit();
+        })
+    </script>
+</body>
+</html>
