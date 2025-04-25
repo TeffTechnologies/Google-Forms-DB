@@ -24,6 +24,7 @@ This project provides a simple way to use Google Forms as a backend database for
 5.  Ensure the `name` attributes of your input fields match your Google Form input attributes.
 
 ## Example HTML Form
+[https://tefftechnologies.github.io/Google-Forms-DB/](https://tefftechnologies.github.io/Google-Forms-DB/)
 
 ```html
 <form  id="gform">
