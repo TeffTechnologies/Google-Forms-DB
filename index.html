@@ -23,7 +23,7 @@
     <h1>Google Forms Database</h1>
     <h4>This is an example html page that sends form data to Google Forms.</h4>
     <br>
-    <form id="gform"> 
+    <form id="gform">
         <label for="short_answer">Short Answer:</label>
         <input type="text" name="entry.1818477530" id="short_answer" placeholder="short answer">
         <hr>
@@ -55,40 +55,40 @@
         </select>
         <hr>
         <br>
-        <input type="submit" value="Submit"/>
+        <button type="submit" value="Submit">Submit</button>
     </form>
     <script>
-        const form = document.getElementById("gform");
-        const submit = document.getElementById()
+        const form = document.querySelector("#gform")
+
+        form.addEventListener('submit', (event) => {
+                event.preventDefault();
+                formSubmit();
+                alert("Data has been sent to Google Forms");
+        })
 
         const formSubmit = async () => {
             const formData = new FormData(form);
 
-            for (item of formData) {
-                console.log(item[0], item[1]);
-            }
+            const convertFormEntries = Array.from(
+                formData,
+                ([key, value]) => (
+                    [key, typeof value === 'string' ? value : value.name]
+                ),
+            );
 
-            const endpoint = "https://docs.google.com/forms/u/0/d/e/1FAIpQLSeKFo81YBgsLrFjuY8LQnF5Q0a_wOgP3ez5OFydOYrAl_wQ4w/formResponse";
+            const queryString = new URLSearchParams(convertFormEntries).toString();
+
+            const endpoint = "https://docs.google.com/forms/u/0/d/e/1FAIpQLSeKFo81YBgsLrFjuY8LQnF5Q0a_wOgP3ez5OFydOYrAl_wQ4w/formResponse"
+
             try {
-                const response = await fetch(endpoint, {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "x-www-form-urlencoded"
-                    },
-                    body: formData,
+                const response = await fetch(endpoint + '?' + queryString, {
+                    method: "GET",
                 });
-                console.log(await response.json());
             } catch (e) {
                 console.error(e)
             }
         }
 
-        form.addEventListener("submit", (event) => {
-                event.preventDefualt();
-                const payload = new FormData(form);
-                console.log([...payload]);
-                // formSubmit();
-        })
     </script>
 </body>
 </html>
