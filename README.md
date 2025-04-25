@@ -1,4 +1,4 @@
-# HTML Form to Google Forms Backend
+# HTML Form to Google Forms
 
 This project provides a simple way to use Google Forms as a backend database for your static HTML forms. It leverages Javascript to send form data and automatically populate to Google Forms and a linked Google Sheet.
 
